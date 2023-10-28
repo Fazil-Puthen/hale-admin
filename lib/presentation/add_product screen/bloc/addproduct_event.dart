@@ -19,3 +19,10 @@ class AddProductdtoFirestore extends AddproductEvent{
     required this.price
   });
 }
+
+ class  EditSelectedimageevent extends AddproductEvent{}
+
+ class ImageDeleteEvent extends AddproductEvent{
+  final int index;
+  ImageDeleteEvent({required this.index});
+ }

@@ -16,16 +16,6 @@ class Dashwidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-         GestureDetector(
-          onTap: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>AddProduct()));},
-           child: const Row(
-             children: [
-               Icon(Icons.add),
-               Text('Add product')
-             ],
-           ),
-         ),
             Card(color: Colors.white,
               child: Container(
                 width: screenwidth*0.8,

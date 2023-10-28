@@ -31,7 +31,7 @@ class Dashboard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: screenwidth*0.5,
+              width: screenwidth<750?screenwidth:screenwidth*0.5,
             height: screenheight*0.1,
            decoration: BoxDecoration(
             borderRadius:const  BorderRadius.only(topRight: Radius.circular(20),bottomRight: Radius.circular(20)),
@@ -50,8 +50,8 @@ class Dashboard extends StatelessWidget {
             ),
          BlocBuilder<DashboardBloc, DashboardState>(
           builder: (context, state) {
-            if(state is Homeboardstate){
-              return const Dashwidget();
+            if(state is Messagestate){
+              return const Messagewidget();
             }
             else if(state is Productstate){
               return const Productwidget();
@@ -60,7 +60,7 @@ class Dashboard extends StatelessWidget {
               return const Userwidget();
             }
             else{
-              return const Messagewidget();
+              return const Dashwidget();
             }
           },
          )
