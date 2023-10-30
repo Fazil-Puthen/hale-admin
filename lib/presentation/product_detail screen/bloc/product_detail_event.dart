@@ -8,3 +8,8 @@ class DetailFetchEvent extends ProductDetailEvent
   final int index;
   DetailFetchEvent({required this.index});
 }
+
+class ImagePressedevent extends ProductDetailEvent{
+  final int index;
+  ImagePressedevent({required this.index});
+}

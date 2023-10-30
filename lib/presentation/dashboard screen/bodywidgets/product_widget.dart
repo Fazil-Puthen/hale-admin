@@ -16,17 +16,14 @@ class Productwidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child:
-         Column(
-          children: [  GestureDetector(
+         Column(crossAxisAlignment: CrossAxisAlignment.start,
+          children: [  InkWell(
           onTap: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>AddProduct()));},
-           child:  const Row(
-             children: [
-               Icon(Icons.add),
-               Text('Add product',style:TextStyle(color: Colors.blue),)
-             ],
-           ),
+           child:  const TextbuttonContainer(icon: Icons.add,text:'Add Product',),
          ),
+         box,
+          Text('Added Products',style: detailfont(20, Colors.black, FontWeight.w200),),
           Card(elevation: 10,
             child: Container(width: screenwidth*0.8,
             height: sreenheight*0.5,
@@ -64,3 +61,5 @@ class Productwidget extends StatelessWidget {
     );
   }
 }
+
+

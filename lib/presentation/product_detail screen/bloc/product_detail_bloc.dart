@@ -12,9 +12,14 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
       // TODO: implement event handler
     });
     on<DetailFetchEvent>(deteilfetchhandler);
+    on<ImagePressedevent>(imagedetailhandler);
   }
 
   FutureOr<void> deteilfetchhandler(DetailFetchEvent event, Emitter<ProductDetailState> emit) {
     
+  }
+
+  FutureOr<void> imagedetailhandler(ImagePressedevent event, Emitter<ProductDetailState> emit) {
+    emit(ImageDetailstate(index:event.index));
   }
 }

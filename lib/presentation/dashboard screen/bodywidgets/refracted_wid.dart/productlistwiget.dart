@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hale_backend/constants/constants.dart';
-import 'package:hale_backend/presentation/dashboard%20screen/bloc/dashboard_bloc.dart';
-import 'package:hale_backend/presentation/product_detail%20screen/bloc/product_detail_bloc.dart';
 import 'package:hale_backend/presentation/product_detail%20screen/product_detail.dart';
 
 class ProductListbuild extends StatelessWidget {
@@ -24,18 +21,17 @@ class ProductListbuild extends StatelessWidget {
         return 
         InkWell(
           onTap: () {
-            
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductDetail(productdata: productdata,)));
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context)=>ProductDetail(productdata:productdata,docindex:index)));
           },
           child:
          Card(
-           child: ListTile(title: Text(value['Name']),
-           subtitle: Text(value['Brand']),
-            leading: CircleAvatar(backgroundImage:NetworkImage(firstimage)),
-            trailing:IconButton(onPressed: (){
- 
-            }, 
-            icon: Icon(Icons.edit))
+           child: ListTile(title: Text(value['Name'],style: detailfont(15, Colors.black, FontWeight.w200),),
+           subtitle: Text(value['Brand'],style: detailfont(10, Colors.black, FontWeight.normal),),
+            leading: Container(width: 50,height: 50,
+              decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(firstimage))),),
+            trailing:Text('₹ ${value['price']}',style: detailfont(15, Colors.black, FontWeight.w300),),
+            
            ),
          ));
       },

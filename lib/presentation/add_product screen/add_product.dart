@@ -117,24 +117,4 @@ class AddProduct extends StatelessWidget {
 }
 
 
-//product text field
-class Productenterfield extends StatelessWidget {
-  final String text;
-  final TextEditingController controller;
-  const Productenterfield({
-    super.key,
-    required this.text,
-    required this.controller,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          hintText: text,
-          hintStyle: headfont(10)),
-    );
-  }
-}

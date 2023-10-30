@@ -6,6 +6,7 @@ import 'package:hale_backend/presentation/add_product%20screen/bloc/addproduct_b
 import 'package:hale_backend/presentation/dashboard%20screen/bloc/dashboard_bloc.dart';
 import 'package:hale_backend/presentation/dashboard%20screen/dashboard.dart';
 import 'package:hale_backend/presentation/product_detail%20screen/bloc/product_detail_bloc.dart';
+import 'package:hale_backend/presentation/product_update-delete/bloc/update_delete_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         ),
           BlocProvider(
           create: (context) => ProductDetailBloc(),
+        ),
+          BlocProvider(
+          create: (context) => UpdateDeleteBloc(),
         ),
       ],
       child: MaterialApp(
