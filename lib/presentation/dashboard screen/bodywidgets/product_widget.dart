@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hale_backend/constants/constants.dart';
 import 'package:hale_backend/presentation/add_product%20screen/add_product.dart';
-import 'package:hale_backend/presentation/dashboard%20screen/bodywidgets/refracted_wid.dart/productlistwiget.dart';
+import 'package:hale_backend/presentation/dashboard%20screen/bodywidgets/home_bodywidgets/productlistwiget.dart';
 
 class Productwidget extends StatelessWidget {
   const Productwidget({super.key});

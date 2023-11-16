@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(),
-        home: Dashboard(),
+        home:Dashboard(),
       ),
     );
   }

@@ -16,6 +16,9 @@ import 'package:google_fonts/google_fonts.dart';
 final pinkcolor=Colors.pink.withOpacity(0.2);
 const hale='assets/Hale.png';
 const box=SizedBox(height: 15,);
+const colors=[Colors.amber,Colors.black,Colors.red,Colors.green];
+
+  List<String> category=['Shirt','Tshirt','Jeans','Trousers','Shorts'];
 
 TextStyle headfont(double size)
 {
@@ -58,13 +61,11 @@ class TextbuttonContainer extends StatelessWidget {
 //product text field
 class Productenterfield extends StatelessWidget {
   final String text;
-  String? initial;
   final TextEditingController controller;
    Productenterfield({
     super.key,
     required this.text,
     required this.controller,
-    this.initial,
   });
 
   @override
@@ -74,7 +75,6 @@ class Productenterfield extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          hintText: initial,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: text,
             labelStyle: detailfont(10,Colors.black.withOpacity(0.6), FontWeight.normal),

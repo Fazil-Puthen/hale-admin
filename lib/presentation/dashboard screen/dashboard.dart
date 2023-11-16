@@ -57,7 +57,7 @@ class Dashboard extends StatelessWidget {
               return const Productwidget();
             }
             else if(state is Userstate){
-              return const Userwidget();
+              return  Userwidget();
             }
             else{
               return const Dashwidget();
@@ -91,7 +91,7 @@ class Dashboardbutton extends StatelessWidget {
     return   GestureDetector(
       onTap:() => context.read<DashboardBloc>().add(WidgetchangeEvent(index: index)),
       child: Column(mainAxisAlignment: MainAxisAlignment.center,
-         children: [Icon(icon),Text(text)],
+         children: [Icon(icon),Text(text,style: detailfont(10,Colors.black, FontWeight.w300),)],
         ),
     );
   }

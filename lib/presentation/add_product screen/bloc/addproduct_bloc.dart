@@ -16,6 +16,7 @@ class AddproductBloc extends Bloc<AddproductEvent, AddproductState> {
     on<PickImageevent>(pickimagehandler);
     on<EditSelectedimageevent>(editselectimagehandler);
     on<ImageDeleteEvent>(imagedeletehandler);
+    on<Onbuttonpressedevent>(buttonpressedhandler);
   }
   
   List<PlatformFile?> pickedfile=[];
@@ -31,6 +32,8 @@ class AddproductBloc extends Bloc<AddproductEvent, AddproductState> {
         'Brand': event.brand,
         'description': event.description,
         'price': event.price,
+        'quantity':event.quantitiy,
+        'category':event.category,
         'imageurl':imageurls
       });
       pickedfile.clear();
@@ -78,6 +81,9 @@ class AddproductBloc extends Bloc<AddproductEvent, AddproductState> {
   FutureOr<void> imagedeletehandler(ImageDeleteEvent event, Emitter<AddproductState> emit) {
     pickedfile.removeAt(event.index);
     emit(Gallerypicked(pickedfile));
+  }
+  
+  FutureOr<void> buttonpressedhandler(Onbuttonpressedevent event, Emitter<AddproductState> emit) {
   }
   }
 

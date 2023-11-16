@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hale_backend/constants/constants.dart';
 import 'package:hale_backend/presentation/add_product%20screen/bloc/addproduct_bloc.dart';
 
 class ImageContainer extends StatelessWidget {

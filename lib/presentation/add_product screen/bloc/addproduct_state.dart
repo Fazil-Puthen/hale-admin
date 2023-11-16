@@ -14,3 +14,5 @@ class Gallerypicked extends AddproductState{
 }
 
 class Firestoresavedstate extends AddproductState{}
+
+class Buttonstate extends AddproductState{}

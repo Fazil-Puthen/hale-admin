@@ -7,3 +7,6 @@ class WidgetchangeEvent extends DashboardEvent{
   final int index;
   WidgetchangeEvent({required this.index});
 }
+
+class Dashboardinitevent extends DashboardEvent{}
+

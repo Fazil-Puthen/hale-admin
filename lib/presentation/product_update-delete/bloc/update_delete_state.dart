@@ -9,7 +9,7 @@ class ToupdateState extends UpdateDeleteState{
   final String name;
   final String brand;
   final String description;
-  final String price;
+  final int price;
   ToupdateState({
     required this.name,
     required this.brand,

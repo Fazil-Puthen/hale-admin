@@ -19,7 +19,7 @@ class UpdateProductevent extends UpdateDeleteEvent{
   final String name;
   final String brand;
   final String description;
-  final String price;
+  final int price;
   UpdateProductevent({
     required this.name,
     required this.brand,

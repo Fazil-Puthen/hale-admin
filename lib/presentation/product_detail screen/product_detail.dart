@@ -18,7 +18,7 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final value=productdata.data.docs[docindex];
-    final document=productdata.data.docs;
+    // final document=productdata.data.docs;
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -88,17 +88,23 @@ class ProductDetail extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text(value['Name'],style:detailfont(25, Colors.black,FontWeight.w200) ,),
+            children: [
+            Text(value['Name'],style:detailfont(25, Colors.black,FontWeight.w200) ,),
             box,
-            Text(value['Brand'],style: detailfont(15,Colors.black,FontWeight.w100),),
+            Text('Brand: ${value['Brand']}',style: detailfont(15,Colors.black,FontWeight.w100),),
             box,
             Text('₹ ${value['price']}',style: detailfont(25, Colors.black, FontWeight.w400),),
             box,
             Text(value['description'],style: detailfont(13, Colors.black, FontWeight.w100),),
             box,
+            Text('Category: ${value['category']}',style: detailfont(13,Colors.black, FontWeight.w100),),
+            box,
+            Text('Quantity available: ${value['quantity']}',style: detailfont(13,Colors.black, FontWeight.w100),),
+            box,
             Row(children: [
               InkWell(onTap: () {
                 String docID=value.id;
+                print('this is the buttonclick for update');
                 context.read<UpdateDeleteBloc>().add(ToupdateEvent(id: docID,index: docindex));
                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>UpdateProsuct(docid: 
                 docID,productdata: productdata,)));

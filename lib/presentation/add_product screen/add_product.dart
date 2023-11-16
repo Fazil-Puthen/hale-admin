@@ -5,18 +5,25 @@ import 'package:hale_backend/constants/constants.dart';
 import 'package:hale_backend/presentation/add_product%20screen/bloc/addproduct_bloc.dart';
 import 'package:hale_backend/presentation/add_product%20screen/add%20product%20widgets/image_select_widget.dart';
 
+// ignore: must_be_immutable
 class AddProduct extends StatelessWidget {
   AddProduct({super.key});
 
   final namecontroller = TextEditingController();
+
   final brandcontroller = TextEditingController();
+
   final descriptioncontroller = TextEditingController();
+
   final pricecontroller = TextEditingController();
-  List<String> gender=['Men','Woman'];
-  var selecteditem='Men';
+
+  final quantitycontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    List<bool> selection = List.filled(category.length, false);
+    // Color selectedcolor=Colors.black.withOpacity(0.7);
+    String selectedcategory = '';
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -44,11 +51,14 @@ class AddProduct extends StatelessWidget {
                     style: headfont(20),
                   ),
                   box,
-                  Center(child: ElevatedButton(
-                    onPressed: () {
-                    context.read<AddproductBloc>().add(PickImageevent());
-                  },
-                  child: Text('Add images'),),),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context.read<AddproductBloc>().add(PickImageevent());
+                      },
+                      child: Text('Add images'),
+                    ),
+                  ),
                   box,
                   ImageContainer(
                       screenwidth: screenwidth, screenheight: screenheight),
@@ -73,22 +83,96 @@ class AddProduct extends StatelessWidget {
                     controller: pricecontroller,
                   ),
                   box,
-                  
-                  // DropdownButton(
+                  Productenterfield(
+                      text: 'Quantity', controller: quantitycontroller),
+                  box,
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Select a Category',
+                          style: detailfont(17, Colors.black, FontWeight.w400),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: screenwidth * 0.5,
+                          height: 25,
+                          // color: Colors.amber,
+
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: category.length,
+                            itemBuilder: (context, index) {
+                              return BlocConsumer<AddproductBloc, AddproductState>(
+                                listenWhen:(previous, current) => current is Buttonstate ,
+                                listener: (context, state) {
+                                  // TODO: implement listener
+                                },
+                                builder: (context, state) {
+                                  return OutlinedButton(
+                                      onPressed: () {
+                                        context.read<AddproductBloc>().add(
+                                            Onbuttonpressedevent(index: index));
+                                        selectedcategory = category[index];
+                                      },
+                                      autofocus: true,
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white)),
+                                      child: Text(
+                                        category[index],
+                                        style: detailfont(10, Colors.black,
+                                            FontWeight.normal),
+                                      ));
+                                },
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              width: 4,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  box,
+                  // DropdownButton<String>(
                   //   value:selecteditem ,
-                  //   items:List<DropdownMenuItem>.from(gender),
+                  //   items:gender.map<DropdownMenuItem<String>>((String item){
+                  //     return DropdownMenuItem<String>(
+                  //       value: item,
+                  //       child: Text(item),);
+                  //   }).toList(),
                   // onChanged:(value) {
-                  //   selecteditem=value;
+                  //   selecteditem=value!;
                   // },),
 
                   InkWell(
                     onTap: () {
                       context.read<AddproductBloc>().add(AddProductdtoFirestore(
-                            name: namecontroller.text,
-                            brand: brandcontroller.text,
-                            description: descriptioncontroller.text,
-                            price: pricecontroller.text,
-                          ));
+                          name: namecontroller.text,
+                          brand: brandcontroller.text,
+                          description: descriptioncontroller.text,
+                          price: int.parse(pricecontroller.text),
+                          quantitiy: int.parse(quantitycontroller.text),
+                          category: selectedcategory));
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -115,6 +199,3 @@ class AddProduct extends StatelessWidget {
     );
   }
 }
-
-
-

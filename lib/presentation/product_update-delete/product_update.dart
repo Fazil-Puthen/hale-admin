@@ -43,10 +43,10 @@ class UpdateProsuct extends StatelessWidget {
               child: BlocBuilder<UpdateDeleteBloc, UpdateDeleteState>(
                 builder: (context, state) {
                   if(state is ToupdateState){
-                    namecontroller.text=state.name!;
-                    brandcontroller.text=state.brand!;
-                    descriptioncontroller.text=state.description!;
-                    pricecontroller.text=state.price!;
+                    namecontroller.text=state.name;
+                    brandcontroller.text=state.brand;
+                    descriptioncontroller.text=state.description;
+                    pricecontroller.text=state.price.toString();
                   return Column(
                     children: [
                       box,
@@ -70,26 +70,22 @@ class UpdateProsuct extends StatelessWidget {
                           screenwidth: screenwidth, screenheight: screenheight),
                       box,
                       Productenterfield(
-                        text: 'Product Nmae',
-                        initial: state.name,
+                        text: 'Product Name',
                         controller: namecontroller,
                       ),
                       box,
                       Productenterfield(
                           text: 'Product Brand',
-                        initial: state.brand,
                         controller: brandcontroller,
                       ),
                       box,
                       Productenterfield(
                        text: 'Description',
-                        initial: state.description,
                         controller: descriptioncontroller,
                       ),
                       box,
                       Productenterfield(
                         text: 'Price',
-                        initial: state.price,
                         controller: pricecontroller,
                       ),
                       box,
@@ -109,7 +105,7 @@ class UpdateProsuct extends StatelessWidget {
                                 name: namecontroller.text,
                                 brand: brandcontroller.text,
                                 description: descriptioncontroller.text,
-                                price: pricecontroller.text,
+                                price: int.parse(pricecontroller.text),
                                 id:docid,
                               ));
                           Navigator.pop(context);
