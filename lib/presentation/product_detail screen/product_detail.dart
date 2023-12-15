@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hale_backend/constants/constants.dart';
 import 'package:hale_backend/presentation/dashboard%20screen/dashboard.dart';
 import 'package:hale_backend/presentation/product_detail%20screen/bloc/product_detail_bloc.dart';
+import 'package:hale_backend/presentation/product_update-delete/bloc/multicontentupdate_bloc.dart';
 import 'package:hale_backend/presentation/product_update-delete/bloc/update_delete_bloc.dart';
 import 'package:hale_backend/presentation/product_update-delete/product_update.dart';
 
-class ProductDetail extends StatelessWidget {
+class ProductDetail extends StatefulWidget {
   final AsyncSnapshot productdata;
   final int docindex;
-   ProductDetail(
+   const ProductDetail(
       {super.key, required this.productdata, required this.docindex});
 
-  final widbox=SizedBox(width: 15,);
+  @override
+  State<ProductDetail> createState() => _ProductDetailState();
+}
+
+class _ProductDetailState extends State<ProductDetail> {
+
+@override
+  void initState() {
+    Future.delayed(const Duration(seconds: 1));
+    context
+    .read<ProductDetailBloc>()
+    .add(ImagePressedevent(index:0));
+    super.initState();
+  }
+
+  final widbox=const SizedBox(width: 15,);
 
   @override
   Widget build(BuildContext context) {
-    final value=productdata.data.docs[docindex];
+    final value=widget.productdata.data.docs[widget.docindex];
     // final document=productdata.data.docs;
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
@@ -41,7 +56,6 @@ class ProductDetail extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1, mainAxisSpacing: 2),
               itemBuilder: (context, index) {
-                print(index);
                 return InkWell(
                   child: Container(
                     width: 10,
@@ -104,10 +118,10 @@ class ProductDetail extends StatelessWidget {
             Row(children: [
               InkWell(onTap: () {
                 String docID=value.id;
-                print('this is the buttonclick for update');
-                context.read<UpdateDeleteBloc>().add(ToupdateEvent(id: docID,index: docindex));
+                 context.read<MulticontentupdateBloc>().add(Fetchupdateimageevent(id: docID));
+                context.read<UpdateDeleteBloc>().add(ToupdateEvent(id: docID,index: widget.docindex));
                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>UpdateProsuct(docid: 
-                docID,productdata: productdata,)));
+                docID,productdata: widget.productdata,)));
               },
                 child:
                const TextbuttonContainer(icon: Icons.edit,text: 'Edit Product',)),

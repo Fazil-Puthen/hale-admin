@@ -3,10 +3,10 @@ part of 'update_delete_bloc.dart';
 @immutable
 sealed class UpdateDeleteEvent {}
 
-class UpdateEvent extends UpdateDeleteEvent{
-  final String id;
-  UpdateEvent({required this.id});
-}
+// class UpdateEvent extends UpdateDeleteEvent{
+//   final String id;
+//   UpdateEvent({required this.id});
+// }
 
 class ToupdateEvent extends UpdateDeleteEvent{
   final String id;

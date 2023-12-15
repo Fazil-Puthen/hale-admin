@@ -1,12 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hale_backend/presentation/add_product%20screen/add_product.dart';
-import 'package:hale_backend/presentation/add_product%20screen/bloc/addproduct_bloc.dart';
-import 'package:hale_backend/presentation/dashboard%20screen/bloc/dashboard_bloc.dart';
+import 'package:hale_backend/presentation/blocproviderfile.dart';
 import 'package:hale_backend/presentation/dashboard%20screen/dashboard.dart';
-import 'package:hale_backend/presentation/product_detail%20screen/bloc/product_detail_bloc.dart';
-import 'package:hale_backend/presentation/product_update-delete/bloc/update_delete_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,25 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => DashboardBloc(),
-        ),
-        BlocProvider(
-          create: (context) => AddproductBloc(),
-        ),
-          BlocProvider(
-          create: (context) => ProductDetailBloc(),
-        ),
-          BlocProvider(
-          create: (context) => UpdateDeleteBloc(),
-        ),
-      ],
+      providers:getAppProviders(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Hale-Admin',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(),
-        home:Dashboard(),
+        home: const Dashboard(),
       ),
     );
   }

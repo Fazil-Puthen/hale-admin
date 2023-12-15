@@ -1,13 +1,11 @@
 //image  selection by user container
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hale_backend/presentation/add_product%20screen/bloc/addproduct_bloc.dart';
-import 'package:hale_backend/presentation/product_update-delete/bloc/update_delete_bloc.dart';
+import 'package:hale_backend/presentation/product_update-delete/bloc/multicontentupdate_bloc.dart';
 
-class ImageContainer extends StatelessWidget {
-  const ImageContainer({
+class UpdateImageContainer extends StatelessWidget {
+  const UpdateImageContainer({
     super.key,
     required this.screenwidth,
     required this.screenheight,
@@ -18,18 +16,19 @@ class ImageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddproductBloc, AddproductState>(
-      // buildWhen:(previous, current) => current is Gallerypicked,
+    return BlocBuilder<MulticontentupdateBloc, MulticontentupdateState>(
       builder: (context, state) {
-        if (state is Gallerypicked||state is  ToupdateState) {
-          final images = state.pickedimages;
-            if(images==null||images.isEmpty) {
+        if(state is Addimageloadingstate){
+          return const Center(child: CircularProgressIndicator(),);
+        }
+        if (state is  ImagefethsuccessState) {
+          final List images = state.imagelist;
+            if(images.isEmpty) {
             return const Center(
               child: Text('please select an image'),
             );
           }
           else {
-            //  print('this is images length: ${images.length.toString()}');
             return Stack(children: [
               SizedBox(
                   width: screenwidth * 0.5,
@@ -48,9 +47,7 @@ class ImageContainer extends StatelessWidget {
                             width: 200,
                             decoration: BoxDecoration(
                                 image: DecorationImage(fit: BoxFit.contain,
-                                    image: MemoryImage( 
-                                       Uint8List.fromList(
-                                        images[index].bytes,)))),
+                                    image: NetworkImage(images[index]))),
                           ),
                           Positioned(left: screenwidth<750?1:25,
                           top: screenwidth<750?-10:1,
@@ -65,7 +62,7 @@ class ImageContainer extends StatelessWidget {
                                 color: Colors.red.withOpacity(0.5),
                               ),
                               onPressed: () {
-                                 context.read<AddproductBloc>().add(ImageDeleteEvent(index: index));
+                                 context.read<MulticontentupdateBloc>().add(DeleteimageEvent(index: index));
                               },
                             ),
                           )

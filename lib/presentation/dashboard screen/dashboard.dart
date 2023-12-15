@@ -1,10 +1,8 @@
-// ignore_for_file: unrelated_type_equality_checks
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hale_backend/constants/constants.dart';
 import 'package:hale_backend/presentation/dashboard%20screen/bodywidgets/dashboard_widget.dart';
-import 'package:hale_backend/presentation/dashboard%20screen/bodywidgets/message_widget.dart';
+import 'package:hale_backend/presentation/dashboard%20screen/bodywidgets/orders_widget.dart';
 import 'package:hale_backend/presentation/dashboard%20screen/bodywidgets/product_widget.dart';
 import 'package:hale_backend/presentation/dashboard%20screen/bodywidgets/user_widget.dart';
 import 'package:hale_backend/presentation/dashboard%20screen/bloc/dashboard_bloc.dart';
@@ -44,20 +42,20 @@ class Dashboard extends StatelessWidget {
                Dashboardbutton(icon:Icons.dashboard_outlined,text:'Dashboard',index: 1,),
                Dashboardbutton(icon: Icons.card_travel_rounded, text: 'Products',index: 2,),
                Dashboardbutton(icon: Icons.supervised_user_circle_outlined, text: 'Users',index: 3,),
-               Dashboardbutton(icon: Icons.message_outlined, text:'Messages',index: 4,)
+               Dashboardbutton(icon: Icons.flight_takeoff_rounded, text:'Orders',index: 4,)
               ],
             ),
             ),
          BlocBuilder<DashboardBloc, DashboardState>(
           builder: (context, state) {
-            if(state is Messagestate){
-              return const Messagewidget();
+            if(state is OrdersState){
+              return const Orderwidget();
             }
             else if(state is Productstate){
               return const Productwidget();
             }
             else if(state is Userstate){
-              return  Userwidget();
+              return const  Userwidget();
             }
             else{
               return const Dashwidget();
@@ -89,7 +87,7 @@ class Dashboardbutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   GestureDetector(
-      onTap:() => context.read<DashboardBloc>().add(WidgetchangeEvent(index: index)),
+      onTap:(){ context.read<DashboardBloc>().add(WidgetchangeEvent(index: index));},
       child: Column(mainAxisAlignment: MainAxisAlignment.center,
          children: [Icon(icon),Text(text,style: detailfont(10,Colors.black, FontWeight.w300),)],
         ),

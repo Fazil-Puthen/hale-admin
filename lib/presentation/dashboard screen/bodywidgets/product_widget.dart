@@ -11,7 +11,7 @@ class Productwidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenwidth=MediaQuery.of(context).size.width;
     final sreenheight=MediaQuery.of(context).size.height;
-    return  Container(width: screenwidth,
+    return  SizedBox(width: screenwidth,
     // height: sreenheight*0.7,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -25,8 +25,8 @@ class Productwidget extends StatelessWidget {
          box,
           Text('Added Products',style: detailfont(20, Colors.black, FontWeight.w200),),
           Card(elevation: 10,
-            child: Container(width: screenwidth*0.8,
-            height: sreenheight*0.5,
+            child: SizedBox(width: screenwidth*0.9,
+            height: sreenheight*0.6,
             child: 
             
             StreamBuilder(stream: FirebaseFirestore.instance.collection('products').snapshots(),

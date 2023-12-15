@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hale_backend/constants/constants.dart';
+import 'package:hale_backend/presentation/product_detail%20screen/bloc/product_detail_bloc.dart';
 import 'package:hale_backend/presentation/product_detail%20screen/product_detail.dart';
 
 class ProductListbuild extends StatelessWidget {
@@ -21,6 +23,11 @@ class ProductListbuild extends StatelessWidget {
         return 
         InkWell(
           onTap: () {
+            
+            context
+             .read<ProductDetailBloc>()
+             .add(ImagePressedevent(index:0));
+
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context)=>ProductDetail(productdata:productdata,docindex:index)));
           },

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hale_backend/constants/constants.dart';
-import 'package:hale_backend/presentation/add_product%20screen/add%20product%20widgets/image_select_widget.dart';
-import 'package:hale_backend/presentation/add_product%20screen/bloc/addproduct_bloc.dart';
+import 'package:hale_backend/presentation/product_update-delete/bloc/multicontentupdate_bloc.dart';
 import 'package:hale_backend/presentation/product_update-delete/bloc/update_delete_bloc.dart';
+import 'package:hale_backend/presentation/product_update-delete/refracted_widgets/updateimagecontainer.dart';
 
 class UpdateProsuct extends StatelessWidget {
   final String docid;
@@ -18,6 +18,8 @@ class UpdateProsuct extends StatelessWidget {
   final descriptioncontroller = TextEditingController();
 
   final pricecontroller = TextEditingController();
+
+  final formkey=GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,34 +61,44 @@ class UpdateProsuct extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             context
-                                .read<AddproductBloc>()
-                                .add(PickImageevent());
+                                .read<MulticontentupdateBloc>()
+                                .add(AddimageEvent());
                           },
-                          child: Text('Add images'),
+                          child: const Text('Add images'),
                         ),
                       ),
                       box,
-                      ImageContainer(
+                      UpdateImageContainer(
                           screenwidth: screenwidth, screenheight: screenheight),
                       box,
-                      Productenterfield(
-                        text: 'Product Name',
-                        controller: namecontroller,
-                      ),
-                      box,
-                      Productenterfield(
-                          text: 'Product Brand',
-                        controller: brandcontroller,
-                      ),
-                      box,
-                      Productenterfield(
-                       text: 'Description',
-                        controller: descriptioncontroller,
-                      ),
-                      box,
-                      Productenterfield(
-                        text: 'Price',
-                        controller: pricecontroller,
+                      Form(key: formkey,
+                        child: Column(
+                          children: [
+                            Productenterfield(
+                              text: 'Product Name',
+                              controller: namecontroller,
+                              validate: 'product name is mandatory',
+                            ),
+                            box,
+                            Productenterfield(
+                                text: 'Product Brand',
+                              controller: brandcontroller,
+                              validate: 'Brand is mandatory',
+                            ),
+                            box,
+                            Productenterfield(
+                             text: 'Description',
+                              controller: descriptioncontroller,
+                              validate: 'Description is mandatory',
+                            ),
+                            box,
+                            Productenterfield(
+                              text: 'Price',
+                              controller: pricecontroller,
+                              validate: 'Price is mandatory',
+                            ),
+                          ],
+                        ),
                       ),
                       box,
 
@@ -99,6 +111,8 @@ class UpdateProsuct extends StatelessWidget {
 
                       InkWell(
                         onTap: () {
+                          if(formkey.currentState!.validate()){
+                          context.read<MulticontentupdateBloc>().add(UpdateProductimageevent(id:docid));
                           context
                               .read<UpdateDeleteBloc>()
                               .add(UpdateProductevent(
@@ -109,7 +123,7 @@ class UpdateProsuct extends StatelessWidget {
                                 id:docid,
                               ));
                           Navigator.pop(context);
-                        },
+                        }},
                         child: Container(
                           width: 200,
                           height: 50,

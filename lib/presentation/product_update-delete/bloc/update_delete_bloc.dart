@@ -16,25 +16,29 @@ class UpdateDeleteBloc extends Bloc<UpdateDeleteEvent, UpdateDeleteState> {
     on<ToupdateEvent>(toupdatehandler);
     on<UpdateProductevent>(updateproducthandler);
     on<DeleteProductevent>(deleteproducthandler);
+
   }
    final firestore= FirebaseFirestore.instance.collection('products');
+   List image=[];
 
   FutureOr<void> toupdatehandler(ToupdateEvent event, Emitter<UpdateDeleteState> emit)async {
-    print('this is toupdatehandler');
+    // print('this is toupdatehandler');
     final documentsnapshot=await firestore.doc(event.id).get();
     
     if(documentsnapshot.exists){
     Map<String,dynamic> data=documentsnapshot.data() as Map<String,dynamic>;
-    final image=data['imageurl'];
-    print('this are the images $image');
+    // image=data['imageurl'];
+    // print('this are the images $image');
     final name=data['Name'];
     debugPrint(name);
     final brand=data['Brand'];
     final description=data['description'];
     final price=data['price'];
-    debugPrint('this is the $price');
+    // debugPrint('this is the $price');
 
-    emit(ToupdateState(name: name,
+    emit(ToupdateState(
+      // images: image,
+      name: name,
      brand: brand, 
      description: description, 
      price: price));
@@ -56,4 +60,5 @@ class UpdateDeleteBloc extends Bloc<UpdateDeleteEvent, UpdateDeleteState> {
   FutureOr<void> deleteproducthandler(DeleteProductevent event, Emitter<UpdateDeleteState> emit) {
     return firestore.doc(event.id).delete();
   }
+
 }

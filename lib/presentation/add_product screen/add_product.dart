@@ -19,9 +19,11 @@ class AddProduct extends StatelessWidget {
 
   final quantitycontroller = TextEditingController();
 
+  final formkey=GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    List<bool> selection = List.filled(category.length, false);
+    // List<bool> selection = List.filled(category.length, false);
     // Color selectedcolor=Colors.black.withOpacity(0.7);
     String selectedcategory = '';
     final screenwidth = MediaQuery.of(context).size.width;
@@ -56,35 +58,49 @@ class AddProduct extends StatelessWidget {
                       onPressed: () {
                         context.read<AddproductBloc>().add(PickImageevent());
                       },
-                      child: Text('Add images'),
+                      child: const Text('Add images'),
                     ),
                   ),
                   box,
                   ImageContainer(
                       screenwidth: screenwidth, screenheight: screenheight),
                   box,
-                  Productenterfield(
-                    text: 'Product Name',
-                    controller: namecontroller,
+                  Form(
+                    key: formkey,
+                    child: Column(
+                      children: [
+                        Productenterfield(
+                          text: 'Product Name',
+                          controller: namecontroller,
+                          validate: 'Product name is mandatory',
+                        ),
+                        box,
+                        Productenterfield(
+                          text: 'Product Brand',
+                          controller: brandcontroller,
+                          validate: 'Brand is mandatory',
+                        ),
+                        box,
+                        Productenterfield(
+                          text: 'Description',
+                          controller: descriptioncontroller,
+                          validate: 'Description is mandatory',
+                        ),
+                        box,
+                        Productenterfield(
+                          text: 'price',
+                          controller: pricecontroller,
+                          validate: 'Price is mandatory',
+                        ),
+                        box,
+                        Productenterfield(
+                        text: 'Quantity',
+                        controller: quantitycontroller,
+                        validate: 'Quantity is mandatory',),
+                        
+                      ],
+                    ),
                   ),
-                  box,
-                  Productenterfield(
-                    text: 'Product Brand',
-                    controller: brandcontroller,
-                  ),
-                  box,
-                  Productenterfield(
-                    text: 'Description',
-                    controller: descriptioncontroller,
-                  ),
-                  box,
-                  Productenterfield(
-                    text: 'price',
-                    controller: pricecontroller,
-                  ),
-                  box,
-                  Productenterfield(
-                      text: 'Quantity', controller: quantitycontroller),
                   box,
 
                   Padding(
@@ -109,10 +125,9 @@ class AddProduct extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
+                      SizedBox (
                           width: screenwidth * 0.5,
                           height: 25,
-                          // color: Colors.amber,
 
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
@@ -121,7 +136,7 @@ class AddProduct extends StatelessWidget {
                               return BlocConsumer<AddproductBloc, AddproductState>(
                                 listenWhen:(previous, current) => current is Buttonstate ,
                                 listener: (context, state) {
-                                  // TODO: implement listener
+             
                                 },
                                 builder: (context, state) {
                                   return OutlinedButton(
@@ -153,19 +168,10 @@ class AddProduct extends StatelessWidget {
                     ),
                   ),
                   box,
-                  // DropdownButton<String>(
-                  //   value:selecteditem ,
-                  //   items:gender.map<DropdownMenuItem<String>>((String item){
-                  //     return DropdownMenuItem<String>(
-                  //       value: item,
-                  //       child: Text(item),);
-                  //   }).toList(),
-                  // onChanged:(value) {
-                  //   selecteditem=value!;
-                  // },),
 
                   InkWell(
                     onTap: () {
+                      if(formkey.currentState!.validate()){
                       context.read<AddproductBloc>().add(AddProductdtoFirestore(
                           name: namecontroller.text,
                           brand: brandcontroller.text,
@@ -174,7 +180,7 @@ class AddProduct extends StatelessWidget {
                           quantitiy: int.parse(quantitycontroller.text),
                           category: selectedcategory));
                       Navigator.pop(context);
-                    },
+                    }},
                     child: Container(
                       width: 200,
                       height: 50,
